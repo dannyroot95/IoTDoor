@@ -18,6 +18,7 @@ class UserProvider {
         map["id"] = user.id
         map["fullname"] = user.fullname
         map["email"] = user.email
+        map["stateUser"] = "enable"
         return mDatabase.child(user.id).setValue(map)
     }
 

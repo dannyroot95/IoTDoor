@@ -35,17 +35,24 @@ class PasswordActivity : BaseActivity() {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         if (snapshot.exists() && snapshot.hasChild("password")) {
                             val datapassword = snapshot.child("password").value.toString()
-                            if (datapassword == password){
-                                val history =  HistoryModel(name,System.currentTimeMillis())
-                                mDatabase.child("status").setValue("open")
-                                mAuth.registerHistory(history)
-                                binding.edtPassword.setText("")
-                                hideDialog()
-                                Toast.makeText(this@PasswordActivity, "ABIERTO!", Toast.LENGTH_LONG).show()
+                            val state = snapshot.child("stateUser").value.toString()
+                            if (state != "blocked"){
+                                if (datapassword == password){
+                                    val history =  HistoryModel(name,System.currentTimeMillis())
+                                    mDatabase.child("status").setValue("open")
+                                    mAuth.registerHistory(history)
+                                    binding.edtPassword.setText("")
+                                    hideDialog()
+                                    Toast.makeText(this@PasswordActivity, "ABIERTO!", Toast.LENGTH_LONG).show()
+                                }
+                                else{
+                                    hideDialog()
+                                    Toast.makeText(this@PasswordActivity, "Contraseña incorrecta", Toast.LENGTH_SHORT).show()
+                                }
                             }
                             else{
                                 hideDialog()
-                                Toast.makeText(this@PasswordActivity, "Contraseña incorrecta", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this@PasswordActivity, "USUARIO BLOQUEADO!", Toast.LENGTH_SHORT).show()
                             }
 
                         } else {
@@ -88,8 +95,6 @@ class PasswordActivity : BaseActivity() {
                 dialog.dismiss()
             }
             builder.show()
-
-
         }
     }
 
