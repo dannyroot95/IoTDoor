@@ -42,7 +42,7 @@ class CreatePasswords : BaseActivity() {
                 }
             }
             else{
-                Toast.makeText(this@CreatePasswords,"Seleccione usuario ó digite la clave",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@CreatePasswords,"Seleccione un usuario ó digite la clave",Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -63,6 +63,7 @@ class CreatePasswords : BaseActivity() {
                     val arrayAdapter: ArrayAdapter<String> = ArrayAdapter<String>(this@CreatePasswords,
                             R.layout.support_simple_spinner_dropdown_item, listName)
                     binding.spUsers.adapter = arrayAdapter
+                    binding.progress.visibility = View.GONE
                     binding.spUsers.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                             idSelected = listID[position]
