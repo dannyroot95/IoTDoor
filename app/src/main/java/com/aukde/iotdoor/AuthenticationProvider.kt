@@ -3,12 +3,14 @@ package com.aukde.iotdoor
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 import java.util.HashMap
 
 class AuthenticationProvider {
-    var mAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    var mAuth: FirebaseAuth = Firebase.auth
     var mDatabaseReference : DatabaseReference = FirebaseDatabase.getInstance().reference
 
     fun register(email: String, password: String): Task<AuthResult?> {

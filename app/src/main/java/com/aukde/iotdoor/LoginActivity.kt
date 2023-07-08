@@ -8,6 +8,7 @@ import android.widget.Toast
 import com.aukde.iotdoor.databinding.ActivityLoginBinding
 import com.aukde.iotdoor.databinding.ActivityMainBinding
 import com.google.firebase.database.*
+import es.dmoral.toasty.Toasty
 
 class LoginActivity : BaseActivity() {
 
@@ -25,6 +26,9 @@ class LoginActivity : BaseActivity() {
         }
         binding.btnLogin.setOnClickListener {
             login()
+        }
+        binding.tvForgotPassword.setOnClickListener {
+            startActivity(Intent(this, RecoveryPasswordActivity::class.java))
         }
     }
 
@@ -55,22 +59,22 @@ class LoginActivity : BaseActivity() {
                             else{
                                 mAuth.logout()
                                 hideDialog()
-                                Toast.makeText(this@LoginActivity, "Error!", Toast.LENGTH_LONG).show()
+                                Toasty.error(this@LoginActivity, "Error!", Toast.LENGTH_LONG).show()
                             }
                         }
                         override fun onCancelled(error: DatabaseError) {
                             mAuth.logout()
                             hideDialog()
-                            Toast.makeText(this@LoginActivity, "Error!", Toast.LENGTH_LONG).show()
+                            Toasty.error(this@LoginActivity, "Error!", Toast.LENGTH_LONG).show()
                         }
                     })}
                 else{
                     hideDialog()
-                    Toast.makeText(this, "Error!, revise sus credenciales", Toast.LENGTH_LONG).show()
+                    Toasty.error(this, "Error!, revise sus credenciales", Toast.LENGTH_LONG).show()
                 }
             }
         }else{
-            Toast.makeText(this, "Complete los campos", Toast.LENGTH_LONG).show()
+            Toasty.warning(this, "Complete los campos", Toast.LENGTH_LONG).show()
         }
     }
 

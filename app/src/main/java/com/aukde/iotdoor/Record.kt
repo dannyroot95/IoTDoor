@@ -20,7 +20,8 @@ class Record : BaseActivity() {
     }
 
     private fun getRecords(){
-        mAuth.getHistoryUsers(this)
+        val date = System.currentTimeMillis().toString()
+        mAuth.getHistoryUsers(this,date)
     }
 
     fun successHistory(list : ArrayList<HistoryModel>){

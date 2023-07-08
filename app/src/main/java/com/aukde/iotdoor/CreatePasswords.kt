@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.aukde.iotdoor.databinding.ActivityCreatePasswordsBinding
 import com.google.firebase.database.*
+import es.dmoral.toasty.Toasty
 import java.util.HashMap
 
 class CreatePasswords : BaseActivity() {
@@ -36,17 +37,17 @@ class CreatePasswords : BaseActivity() {
                 mDatabase.child(idSelected).updateChildren(map).addOnCompleteListener {
                     if (it.isSuccessful){
                         hideDialog()
-                        Toast.makeText(this@CreatePasswords,"Clave asignada!",Toast.LENGTH_SHORT).show()
+                        Toasty.success(this@CreatePasswords,"Clave asignada!",Toast.LENGTH_SHORT).show()
                         finish()
                     }
                     else{
                         hideDialog()
-                        Toast.makeText(this@CreatePasswords,"Error!",Toast.LENGTH_SHORT).show()
+                        Toasty.error(this@CreatePasswords,"Error!",Toast.LENGTH_SHORT).show()
                     }
                 }
             }
             else{
-                Toast.makeText(this@CreatePasswords,"Seleccione un usuario ó digite la clave",Toast.LENGTH_SHORT).show()
+                Toasty.warning(this@CreatePasswords,"Seleccione un usuario ó digite la clave",Toast.LENGTH_SHORT).show()
             } }
 
         binding.btnBlocked.setOnClickListener {
@@ -64,17 +65,17 @@ class CreatePasswords : BaseActivity() {
                     mDatabase.child(idSelected).updateChildren(map).addOnCompleteListener {
                         if (it.isSuccessful){
                             hideDialog()
-                            Toast.makeText(this@CreatePasswords,"Usuario Bloqueado!",Toast.LENGTH_SHORT).show()
+                            Toasty.error(this@CreatePasswords,"Usuario Bloqueado!",Toast.LENGTH_SHORT).show()
                             finish()
                         }
                         else{
                             hideDialog()
-                            Toast.makeText(this@CreatePasswords,"Error!",Toast.LENGTH_SHORT).show()
+                            Toasty.error(this@CreatePasswords,"Error!",Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
                 else{
-                    Toast.makeText(this@CreatePasswords,"Seleccione un usuario",Toast.LENGTH_SHORT).show()
+                    Toasty.warning(this@CreatePasswords,"Seleccione un usuario!",Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -98,17 +99,17 @@ class CreatePasswords : BaseActivity() {
                     mDatabase.child(idSelected).updateChildren(map).addOnCompleteListener {
                         if (it.isSuccessful){
                             hideDialog()
-                            Toast.makeText(this@CreatePasswords,"Usuario Habilitado!",Toast.LENGTH_SHORT).show()
+                            Toasty.success(this@CreatePasswords,"Usuario Habilitado!",Toast.LENGTH_SHORT).show()
                             finish()
                         }
                         else{
                             hideDialog()
-                            Toast.makeText(this@CreatePasswords,"Error!",Toast.LENGTH_SHORT).show()
+                            Toasty.error(this@CreatePasswords,"Error!",Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
                 else{
-                    Toast.makeText(this@CreatePasswords,"Seleccione un usuario",Toast.LENGTH_SHORT).show()
+                    Toasty.info(this@CreatePasswords,"Seleccione un usuario",Toast.LENGTH_SHORT).show()
                 }
             }
 

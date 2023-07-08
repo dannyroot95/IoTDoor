@@ -3,6 +3,7 @@ package com.aukde.iotdoor
 import android.os.Bundle
 import android.widget.Toast
 import com.aukde.iotdoor.databinding.ActivityRegisterBinding
+import es.dmoral.toasty.Toasty
 
 class RegisterActivity : BaseActivity() {
 
@@ -38,39 +39,39 @@ class RegisterActivity : BaseActivity() {
                         val mUserRegister = User(id,fullname,email)
                         mUser.create(mUserRegister).addOnCompleteListener { response ->
                             if (response.isSuccessful) {
-                                Toast.makeText(this,"Usuario creado!", Toast.LENGTH_SHORT).show()
+                                Toasty.success(this,"Usuario creado!", Toast.LENGTH_SHORT).show()
                                 hideDialog()
                                 mAuth.logout()
                                 finish()
                             }else{
                                 hideDialog()
-                                Toast.makeText(this,"Error al registrar datos!", Toast.LENGTH_SHORT).show()
+                                Toasty.error(this,"Error al registrar datos!", Toast.LENGTH_SHORT).show()
                             }
                         }.addOnFailureListener {
                             hideDialog()
-                            Toast.makeText(this,"Error al registrar datos!", Toast.LENGTH_SHORT).show()
+                            Toasty.error(this,"Error al registrar datos!", Toast.LENGTH_SHORT).show()
                         }.addOnCanceledListener {
                             hideDialog()
-                            Toast.makeText(this,"Error al registrar datos!", Toast.LENGTH_SHORT).show()
+                            Toasty.error(this,"Error al registrar datos!", Toast.LENGTH_SHORT).show()
                         }
                     }else{
                         hideDialog()
-                        Toast.makeText(this,"Error al registrar usuario!", Toast.LENGTH_SHORT).show()
+                        Toasty.error(this,"Error al registrar usuario!", Toast.LENGTH_SHORT).show()
                     }
                 }.addOnCanceledListener {
                     hideDialog()
-                    Toast.makeText(this,"Error al registrar usuario!", Toast.LENGTH_SHORT).show()
+                    Toasty.error(this,"Error al registrar usuario!", Toast.LENGTH_SHORT).show()
                 }.addOnFailureListener {
                     hideDialog()
-                    Toast.makeText(this,"Error al registrar usuario!", Toast.LENGTH_SHORT).show()
+                    Toasty.error(this,"Error al registrar usuario!", Toast.LENGTH_SHORT).show()
                 }
             }else{
-                Toast.makeText(this,"La constraseña debe tener al menos 6 caracteres!", Toast.LENGTH_LONG).show()
+                Toasty.info(this,"La constraseña debe tener al menos 6 caracteres!", Toast.LENGTH_LONG).show()
             }
 
         }
         else{
-            Toast.makeText(this,"Complete los campos!", Toast.LENGTH_SHORT).show()
+            Toasty.warning(this,"Complete los campos!", Toast.LENGTH_SHORT).show()
           }
         }
     }

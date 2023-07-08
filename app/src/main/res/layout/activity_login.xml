@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="12dp"
-    android:background="@color/primaryadmin"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <LinearLayout
@@ -24,8 +24,9 @@
             android:layout_width="match_parent"
             android:textAlignment="center"
             android:textSize="16dp"
+            android:fontFamily="sans-serif"
             android:text="Automatic Doors"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:layout_marginTop="-15dp"
             android:layout_height="wrap_content"/>
 
@@ -85,17 +86,19 @@
             android:foreground="?attr/selectableItemBackground"
             android:padding="5dp"
             android:text="Olvidé mi constraseña?"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="14sp"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
             android:id="@+id/btn_login"
+            app:cornerRadius="12dp"
             android:layout_width="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="12dp"
-            android:backgroundTint="@color/primaryadminvariant"
+            android:backgroundTint="@color/black"
             android:textColor="@color/white"
-            android:text="Iniciar Sesíon"
+            android:text="INICIAR SESIÓN"
             android:padding="16dp"
             android:layout_height="wrap_content"/>
 
@@ -112,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="No tienes una cuenta?"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <TextView
@@ -123,7 +126,7 @@
                 android:foreground="?attr/selectableItemBackground"
                 android:padding="5dp"
                 android:text="Registrar"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="18sp" />
 
         </LinearLayout>
@@ -131,12 +134,12 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:text="v1.0"
+        android:text="v1.0 \nDesarrollado por AUKDE"
         android:textSize="12sp"
         android:padding="10dp"
         android:layout_gravity="right"
         android:gravity="bottom"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:layout_height="match_parent"/>
 
 </LinearLayout>

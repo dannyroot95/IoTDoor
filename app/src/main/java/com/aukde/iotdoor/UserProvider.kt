@@ -3,7 +3,8 @@ package com.aukde.iotdoor
 import com.google.android.gms.tasks.Task
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import java.util.HashMap
+import java.util.*
+import kotlin.collections.ArrayList
 
 class UserProvider {
 
@@ -22,13 +23,14 @@ class UserProvider {
         return mDatabase.child(user.id).setValue(map)
     }
 
-    fun getHistoryUsers(activity : Record){
+    fun getHistoryUsers(activity : Record , date : String){
         mHistory.get().addOnSuccessListener { snapshot ->
             val historyList : ArrayList<HistoryModel> = ArrayList()
             for (i in snapshot.children){
                 val data = i.getValue(HistoryModel::class.java)
                 historyList.add(data!!)
             }
+            historyList.reverse()
             activity.successHistory(historyList)
         }
     }

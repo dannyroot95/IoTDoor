@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.aukde.iotdoor.databinding.ActivityMainBinding
 import com.google.firebase.database.*
+import es.dmoral.toasty.Toasty
 
 class PasswordActivity : BaseActivity() {
 
@@ -26,6 +27,7 @@ class PasswordActivity : BaseActivity() {
 
         preference = getSharedPreferences("fullname", MODE_PRIVATE)
         name = preference.getString("key","").toString()
+        //checkingProximitySensor()
 
         binding.btnOk.setOnClickListener {
             if (binding.edtPassword.text.isNotEmpty()){
@@ -43,32 +45,32 @@ class PasswordActivity : BaseActivity() {
                                     mAuth.registerHistory(history)
                                     binding.edtPassword.setText("")
                                     hideDialog()
-                                    Toast.makeText(this@PasswordActivity, "ABIERTO!", Toast.LENGTH_LONG).show()
+                                    Toasty.success(this@PasswordActivity, "ABIERTO!", Toast.LENGTH_LONG).show()
                                 }
                                 else{
                                     hideDialog()
-                                    Toast.makeText(this@PasswordActivity, "Contraseña incorrecta", Toast.LENGTH_SHORT).show()
+                                    Toasty.error(this@PasswordActivity, "Contraseña incorrecta!", Toast.LENGTH_SHORT).show()
                                 }
                             }
                             else{
                                 hideDialog()
-                                Toast.makeText(this@PasswordActivity, "USUARIO BLOQUEADO!", Toast.LENGTH_SHORT).show()
+                                Toasty.error(this@PasswordActivity, "USUARIO BLOQUEADO!", Toast.LENGTH_SHORT).show()
                             }
 
                         } else {
                             hideDialog()
-                            Toast.makeText(this@PasswordActivity, "No tiene clave asignada", Toast.LENGTH_SHORT).show()
+                            Toasty.info(this@PasswordActivity, "No tiene clave asignada..", Toast.LENGTH_SHORT).show()
                         }
 
                     }
                     override fun onCancelled(error: DatabaseError) {
                         hideDialog()
-                        Toast.makeText(this@PasswordActivity,"error",Toast.LENGTH_SHORT).show()
+                        Toasty.error(this@PasswordActivity,"ERROR",Toast.LENGTH_SHORT).show()
                     }
                 })
             }
             else{
-                Toast.makeText(this@PasswordActivity,"digite la clave!",Toast.LENGTH_SHORT).show()
+                Toasty.info(this@PasswordActivity,"Digite la clave!",Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -97,7 +99,6 @@ class PasswordActivity : BaseActivity() {
             builder.show()
         }
     }
-
 
 
     @SuppressLint("SetTextI18n")
@@ -147,6 +148,24 @@ class PasswordActivity : BaseActivity() {
         }
     }
 
+
+    private fun checkingProximitySensor(){
+        mDatabase.child("distance").addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    val value = snapshot.value
+                    val valueInt = Integer.parseInt(value.toString())
+                    if(valueInt in 50..120){
+                        Toast.makeText(this@PasswordActivity,"Estas Cerca",Toast.LENGTH_SHORT).show()
+                    }else{
+                        Toast.makeText(this@PasswordActivity,"OFF",Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+        })
+    }
 
     override fun onBackPressed() {
     }

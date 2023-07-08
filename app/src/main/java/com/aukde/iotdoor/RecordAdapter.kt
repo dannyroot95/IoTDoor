@@ -12,7 +12,7 @@ import kotlin.collections.ArrayList
 class RecordAdapter(private var list: ArrayList<HistoryModel>) : RecyclerView.Adapter<RecordAdapter.MyViewHolder>() {
 
     @SuppressLint("SimpleDateFormat")
-    var formatter: SimpleDateFormat = SimpleDateFormat("dd/MM/yyyy hh:mm:ss")
+    var formatter: SimpleDateFormat = SimpleDateFormat("dd/MM/yyyy hh:mm:ss aa")
 
 
     inner class MyViewHolder(val binding: ItemHistoryBinding) : RecyclerView.ViewHolder(binding.root)

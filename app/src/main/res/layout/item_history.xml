@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="#F4F6F6"
     android:padding="4dp"
     android:layout_marginBottom="4dp"
     android:layout_height="wrap_content">
@@ -23,6 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_weight="1"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:gravity="center_vertical"
             android:layout_marginLeft="5dp"
             android:layout_height="match_parent"/>
@@ -44,6 +45,7 @@
             android:id="@+id/it_date"
             android:layout_width="wrap_content"
             android:layout_weight="1"
+            android:textColor="#fc0000"
             android:textStyle="bold"
             android:gravity="center"
             android:layout_gravity="center"

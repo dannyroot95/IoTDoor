@@ -7,12 +7,13 @@
     android:orientation="vertical"
     android:gravity="center"
     android:padding="12dp"
-    android:background="@color/primaryadmin">
+    android:background="@color/white">
 
     <TextView
         android:layout_width="match_parent"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textAlignment="center"
+        android:fontFamily="sans-serif"
         android:textSize="18dp"
         android:layout_marginBottom="10dp"
         android:text="CREA TU CUENTA"
@@ -82,14 +83,16 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
             android:id="@+id/btn_register"
+            app:cornerRadius="12dp"
             android:layout_width="200dp"
             android:layout_gravity="center"
             android:layout_marginTop="12dp"
-            android:backgroundTint="@color/primaryadminvariant"
+            android:backgroundTint="@color/black"
             android:textColor="@color/white"
-            android:text="Regístrate"
+            android:text="REGÍSTRATE"
             android:padding="16dp"
             android:layout_height="wrap_content"/>
 

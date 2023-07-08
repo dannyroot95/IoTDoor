@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/primaryadmin"
+    android:background="@color/white"
     tools:context=".PasswordActivity">
 
 
@@ -48,7 +48,7 @@
         android:layout_marginLeft="20dp"
         android:textSize="30dp"
         android:enabled="false"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:layout_marginBottom="10dp"
         android:layout_marginRight="20dp"
         android:layout_height="wrap_content"
@@ -65,8 +65,8 @@
             android:id="@+id/btn1"
             android:layout_width="80dp"
             android:text="1"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/black"
+            android:backgroundTint="@color/black"
+            android:textColor="@color/white"
             android:layout_marginEnd="5dp"
             android:textSize="24sp"
             android:layout_height="80dp"/>
@@ -75,8 +75,8 @@
             android:id="@+id/btn2"
             android:layout_width="80dp"
             android:text="2"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/black"
+            android:backgroundTint="@color/black"
+            android:textColor="@color/white"
             android:layout_marginEnd="5dp"
             android:textSize="24sp"
             android:layout_height="80dp"/>
@@ -85,8 +85,8 @@
             android:id="@+id/btn3"
             android:layout_width="80dp"
             android:text="3"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/black"
+            android:backgroundTint="@color/black"
+            android:textColor="@color/white"
             android:textSize="24sp"
             android:layout_height="80dp"/>
 
@@ -103,8 +103,8 @@
             android:layout_width="80dp"
             android:text="4"
             android:layout_marginEnd="5dp"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/black"
+            android:backgroundTint="@color/black"
+            android:textColor="@color/white"
             android:textSize="24sp"
             android:layout_height="80dp"/>
 
@@ -112,8 +112,8 @@
             android:id="@+id/btn5"
             android:layout_width="80dp"
             android:text="5"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/black"
+            android:backgroundTint="@color/black"
+            android:textColor="@color/white"
             android:layout_marginEnd="5dp"
             android:textSize="24sp"
             android:layout_height="80dp"/>
@@ -122,8 +122,8 @@
             android:id="@+id/btn6"
             android:layout_width="80dp"
             android:text="6"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/black"
+            android:backgroundTint="@color/black"
+            android:textColor="@color/white"
             android:textSize="24sp"
             android:layout_height="80dp"/>
 
@@ -139,8 +139,8 @@
             android:id="@+id/btn7"
             android:layout_width="80dp"
             android:text="7"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/black"
+            android:backgroundTint="@color/black"
+            android:textColor="@color/white"
             android:layout_marginEnd="5dp"
             android:textSize="24sp"
             android:layout_height="80dp"/>
@@ -149,8 +149,8 @@
             android:id="@+id/btn8"
             android:layout_width="80dp"
             android:text="8"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/black"
+            android:backgroundTint="@color/black"
+            android:textColor="@color/white"
             android:layout_marginEnd="5dp"
             android:textSize="24sp"
             android:layout_height="80dp"/>
@@ -159,8 +159,8 @@
             android:id="@+id/btn9"
             android:layout_width="80dp"
             android:text="9"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/black"
+            android:backgroundTint="@color/black"
+            android:textColor="@color/white"
             android:textSize="24sp"
             android:layout_height="80dp"/>
 
@@ -176,8 +176,8 @@
             android:id="@+id/btn0"
             android:layout_width="80dp"
             android:text="0"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/black"
+            android:backgroundTint="@color/black"
+            android:textColor="@color/white"
             android:layout_marginEnd="5dp"
             android:textSize="24sp"
             android:layout_height="80dp"/>
@@ -189,14 +189,14 @@
             android:layout_marginEnd="5dp"
             android:textSize="24sp"
             android:textColor="@color/white"
-            android:backgroundTint="@color/blackgray"
+            android:backgroundTint="#fc0000"
             android:layout_height="80dp"/>
 
         <Button
             android:id="@+id/btn_ok"
             android:layout_width="80dp"
             android:text="OK"
-            android:backgroundTint="#000"
+            android:backgroundTint="#5bbd00"
             android:textSize="24sp"
             android:layout_height="80dp"/>
 
@@ -206,28 +206,44 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:gravity="bottom"
+        android:visibility="visible"
         android:layout_marginTop="20dp"
         android:layout_height="wrap_content">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_create_clave"
             android:layout_width="wrap_content"
-            android:text="Usuarios"
+            android:text="USUARIOS"
+            app:cornerRadius="12dp"
+            android:drawableLeft="@drawable/ic_btn_user"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
             android:layout_marginRight="12dp"
             android:layout_marginLeft="12dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/secondaryadmin"
+            android:backgroundTint="@color/black"
             android:layout_height="60dp"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_record"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
             android:layout_width="wrap_content"
-            android:text="Historial"
+            app:cornerRadius="12dp"
+            android:drawableLeft="@drawable/ic_btn_history"
+            android:text="HISTORIAL"
             android:layout_marginRight="12dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/secondaryadmin"
+            android:backgroundTint="@color/black"
             android:layout_height="60dp"/>
     </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="v1.0 \nDesarrollado por AUKDE"
+            android:textSize="12sp"
+            android:padding="10dp"
+            android:layout_gravity="right"
+            android:gravity="bottom"
+            android:textColor="@color/black"
+            android:layout_height="match_parent"/>
     </LinearLayout>
 
 </LinearLayout>
