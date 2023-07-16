@@ -3,15 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.aukde.iotdoor">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.IOTDoor"
-        tools:ignore="AllowBackup">
-        <activity android:name=".RecoveryPasswordActivity"></activity>
+        android:usesCleartextTraffic="true"
+        tools:ignore="AllowBackup"
+        tools:targetApi="m">
+        <activity
+            android:name=".UI.SyncDeviceActivity"
+            android:exported="false" />
+        <activity android:name=".RecoveryPasswordActivity" />
         <activity android:name=".Record" />
         <activity android:name=".CreatePasswords" />
         <activity android:name=".RegisterActivity" />
@@ -25,6 +33,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="portrait"
+            tools:replace="screenOrientation" />
     </application>
 
 </manifest>

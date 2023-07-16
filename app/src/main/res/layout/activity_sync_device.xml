@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".UI.SyncDeviceActivity">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:src="@drawable/serachqr"
+        android:id="@+id/btn_qr"
+        android:layout_height="200dp"
+        android:contentDescription="TODO" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:textAlignment="center"
+        android:text="Escanea tu dispositivo"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:textAlignment="center"
+        android:text="ó"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:textSize="11dp"
+            android:layout_marginRight="8dp"
+            android:text="Ingresa el ID de tu dispositivo"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:id="@+id/til_device"
+            android:layout_weight="1"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            android:hint="ID"
+            android:textColorHint="@color/blackgray"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:id="@+id/edt_device"
+                tools:ignore="Autofill,LabelFor"
+                android:textSize="11dp"
+                android:textColor="@color/black"
+                android:inputType="textEmailAddress"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:layout_width="55dp"
+            android:text="OK"
+            android:id="@+id/btn_save_id"
+            android:textSize="11dp"
+            android:layout_marginLeft="8dp"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

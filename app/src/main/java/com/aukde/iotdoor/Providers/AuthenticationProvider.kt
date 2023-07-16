@@ -1,5 +1,8 @@
-package com.aukde.iotdoor
+package com.aukde.iotdoor.Providers
 
+import android.content.Context
+import com.aukde.iotdoor.HistoryModel
+import com.aukde.iotdoor.PasswordActivity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
@@ -21,16 +24,22 @@ class AuthenticationProvider {
         return mAuth.signInWithEmailAndPassword(email, password)
     }
 
-    fun registerHistory(historyModel: HistoryModel) : Task<Void>{
+    fun registerHistory(historyModel: HistoryModel, activity:PasswordActivity) : Task<Void>{
+        val sharedPreferencesDevice = activity.getSharedPreferences("cache", Context.MODE_PRIVATE)
+        val id = sharedPreferencesDevice.getString("keyDevice", "")!!
         val map: MutableMap<String, Any> = HashMap()
         map["fullname"] = historyModel.fullname
         map["date"] = historyModel.date
-        return mDatabaseReference.child("history").push().setValue(map)
+        return mDatabaseReference.child("devices").child(id).child("history").push().setValue(map)
     }
 
 
-    fun logout() {
+    fun logout(context: Context) {
         mAuth.signOut()
+        val sharedPreferences = context.getSharedPreferences("cache", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.clear()
+        editor.apply()
     }
 
     fun getId(): String {

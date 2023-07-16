@@ -2,6 +2,8 @@ package com.aukde.iotdoor
 
 import android.os.Bundle
 import android.widget.Toast
+import com.aukde.iotdoor.Providers.AuthenticationProvider
+import com.aukde.iotdoor.Providers.UserProvider
 import com.aukde.iotdoor.databinding.ActivityRegisterBinding
 import es.dmoral.toasty.Toasty
 
@@ -41,7 +43,7 @@ class RegisterActivity : BaseActivity() {
                             if (response.isSuccessful) {
                                 Toasty.success(this,"Usuario creado!", Toast.LENGTH_SHORT).show()
                                 hideDialog()
-                                mAuth.logout()
+                                mAuth.logout(this)
                                 finish()
                             }else{
                                 hideDialog()

@@ -2,13 +2,14 @@ package com.aukde.iotdoor
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.aukde.iotdoor.Providers.AuthenticationProvider
+import com.aukde.iotdoor.UI.SyncDeviceActivity
 import com.aukde.iotdoor.databinding.ActivityLoginBinding
-import com.aukde.iotdoor.databinding.ActivityMainBinding
 import com.google.firebase.database.*
 import es.dmoral.toasty.Toasty
+import java.util.HashMap
 
 class LoginActivity : BaseActivity() {
 
@@ -46,24 +47,71 @@ class LoginActivity : BaseActivity() {
                             if (snapshot.exists()){
 
                                 val name = snapshot.child("fullname").value.toString()
-                                val sharedPreferencesFullname = getSharedPreferences("fullname", Context.MODE_PRIVATE)
-                                val editorFullname = sharedPreferencesFullname.edit()
+                                val device = snapshot.child("device").value.toString()
+                                val type = snapshot.child("typeUser").value.toString()
 
-                                editorFullname.putString("key",name)
-                                editorFullname.apply()
-                                hideDialog()
-                                val intent = Intent(this@LoginActivity, PasswordActivity::class.java)
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                                startActivity(intent)
+                                if(type == ""){
+                                    val map: MutableMap<String, Any> = HashMap()
+                                    map["typeUser"] = "client"
+                                    mDatabase.child("users").child(AuthenticationProvider().getId()).updateChildren(map)
+
+                                    if(device != ""){
+                                        val sharedPreferences= getSharedPreferences("cache", Context.MODE_PRIVATE)
+                                        val editorFullname = sharedPreferences.edit()
+                                        //val sharedPreferencesDevice = getSharedPreferences("cache", Context.MODE_PRIVATE)
+                                        val editorDevice = sharedPreferences.edit()
+
+                                        editorFullname.putString("key",name)
+                                        editorFullname.apply()
+
+                                        editorDevice.putString("keyDevice",device)
+                                        editorDevice.apply()
+
+                                        hideDialog()
+                                        val intent = Intent(this@LoginActivity, PasswordActivity::class.java)
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                        startActivity(intent)
+                                    }else{
+                                        val intent = Intent(this@LoginActivity, SyncDeviceActivity::class.java)
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                        startActivity(intent)
+                                    }
+
+                                }else{
+                                    if(device != ""){
+                                        val sharedPreferences= getSharedPreferences("cache", Context.MODE_PRIVATE)
+                                        val editorFullname = sharedPreferences.edit()
+                                        //val sharedPreferencesDevice = getSharedPreferences("cache", Context.MODE_PRIVATE)
+                                        val editorDevice = sharedPreferences.edit()
+
+                                        editorFullname.putString("key",name)
+                                        editorFullname.apply()
+
+                                        editorDevice.putString("keyDevice",device)
+                                        editorDevice.apply()
+
+                                        hideDialog()
+                                        val intent = Intent(this@LoginActivity, PasswordActivity::class.java)
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                        startActivity(intent)
+                                    }else{
+                                        val intent = Intent(this@LoginActivity, SyncDeviceActivity::class.java)
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                        startActivity(intent)
+                                    }
+                                }
+
+
+
                             }
                             else{
-                                mAuth.logout()
+                                mAuth.logout(this@LoginActivity)
                                 hideDialog()
                                 Toasty.error(this@LoginActivity, "Error!", Toast.LENGTH_LONG).show()
                             }
                         }
                         override fun onCancelled(error: DatabaseError) {
-                            mAuth.logout()
+                            mAuth.logout(this@LoginActivity)
                             hideDialog()
                             Toasty.error(this@LoginActivity, "Error!", Toast.LENGTH_LONG).show()
                         }
@@ -81,7 +129,15 @@ class LoginActivity : BaseActivity() {
     override fun onStart() {
         super.onStart()
         if (mAuth.existSession()){
-            startActivity(Intent(this,PasswordActivity::class.java))
+            val sharedPreferencesDevice = this.getSharedPreferences("cache", Context.MODE_PRIVATE)
+            val id = sharedPreferencesDevice.getString("keyDevice", "")!!
+            if(id != ""){
+                startActivity(Intent(this,PasswordActivity::class.java))
+                finish()
+            }else{
+                startActivity(Intent(this,SyncDeviceActivity::class.java))
+                finish()
+            }
         }
     }
 

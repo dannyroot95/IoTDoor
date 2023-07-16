@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.aukde.iotdoor.Providers.DataDeviceProvider
 import com.aukde.iotdoor.databinding.ActivityCreatePasswordsBinding
 import com.google.firebase.database.*
 import es.dmoral.toasty.Toasty

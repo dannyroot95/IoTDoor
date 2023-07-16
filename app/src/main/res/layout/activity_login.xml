@@ -20,15 +20,6 @@
             android:src="@drawable/digital"
             android:layout_height="200dp"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:textAlignment="center"
-            android:textSize="16dp"
-            android:fontFamily="sans-serif"
-            android:text="Automatic Doors"
-            android:textColor="@color/black"
-            android:layout_marginTop="-15dp"
-            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
@@ -96,7 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="12dp"
-            android:backgroundTint="@color/black"
+            android:backgroundTint="#370051"
             android:textColor="@color/white"
             android:text="INICIAR SESIÓN"
             android:padding="16dp"
