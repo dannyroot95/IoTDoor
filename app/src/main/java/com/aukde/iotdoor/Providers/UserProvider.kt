@@ -1,8 +1,8 @@
 package com.aukde.iotdoor.Providers
 
-import com.aukde.iotdoor.HistoryModel
-import com.aukde.iotdoor.Record
-import com.aukde.iotdoor.User
+import com.aukde.iotdoor.Models.HistoryModel
+import com.aukde.iotdoor.UI.Record
+import com.aukde.iotdoor.Models.User
 import com.google.android.gms.tasks.Task
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase

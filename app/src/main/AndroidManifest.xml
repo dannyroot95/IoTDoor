@@ -19,13 +19,13 @@
         <activity
             android:name=".UI.SyncDeviceActivity"
             android:exported="false" />
-        <activity android:name=".RecoveryPasswordActivity" />
-        <activity android:name=".Record" />
-        <activity android:name=".CreatePasswords" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".PasswordActivity" />
+        <activity android:name=".UI.RecoveryPasswordActivity" />
+        <activity android:name=".UI.Record" />
+        <activity android:name=".UI.CreatePasswords" />
+        <activity android:name=".UI.RegisterActivity" />
+        <activity android:name=".UI.PasswordActivity" android:screenOrientation="portrait" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".UI.LoginActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

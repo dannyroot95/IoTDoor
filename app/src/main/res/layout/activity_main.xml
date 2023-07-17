@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
-    tools:context=".PasswordActivity">
+    android:background="@color/primaryadminvariant"
+    tools:context=".UI.PasswordActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,7 +30,6 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-
         android:layout_height="match_parent"
         android:orientation="vertical">
 
@@ -40,38 +39,15 @@
             android:layout_marginStart="20dp"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:text = "Dispositivo :  "
-                android:layout_height="wrap_content"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:src="@drawable/ic_signal_on"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:text="Conectado"
-                android:textSize="11dp"
-                android:textColor="#145A32"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginStart="20dp"
-            android:layout_height="wrap_content">
-
-            <TextView
+            <com.aukde.iotdoor.Utils.PoppinsTextviewLight
                 android:layout_width="wrap_content"
                 android:text = "IP : "
+                android:textColor="@color/white"
                 android:layout_height="wrap_content"/>
 
-            <TextView
+            <com.aukde.iotdoor.Utils.PoppinsTextviewLight
                 android:id="@+id/ip_device"
+                android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -83,7 +59,8 @@
             android:layout_marginStart="20dp"
             android:layout_height="wrap_content">
 
-            <TextView
+            <com.aukde.iotdoor.Utils.PoppinsTextviewLight
+                android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:text = "Estado de puerta : "
                 android:layout_height="wrap_content"/>
@@ -104,10 +81,11 @@
                 android:layout_height="wrap_content"
                 tools:ignore="InvalidId" />
 
-            <TextView
+            <com.aukde.iotdoor.Utils.PoppinsTextviewLight
                 android:layout_width="wrap_content"
                 android:id="@+id/is_open_door"
                 android:textSize="11dp"
+                android:textColor="@color/white"
                 android:layout_height="wrap_content"/>
 
         </LinearLayout>
@@ -123,7 +101,7 @@
             android:inputType="number"
             android:maxLength="4"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="30dp"
             tools:ignore="Autofill,LabelFor,TextFields" />
 
@@ -131,12 +109,14 @@
             android:layout_width="match_parent"
             android:gravity="right"
             android:layout_marginEnd="15dp"
+            android:layout_marginBottom="8dp"
             android:layout_height="wrap_content"
             tools:ignore="RtlHardcoded">
 
-            <TextView
+            <com.aukde.iotdoor.Utils.PoppinsTextviewLight
                 android:layout_width="wrap_content"
                 android:text="Online"
+                android:textColor="@color/white"
                 android:id="@+id/type"
                 android:layout_height="match_parent"/>
 
@@ -148,74 +128,58 @@
 
         </LinearLayout>
 
-
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:visibility="gone"
-            android:id="@+id/typeOffline"
-            android:layout_height="match_parent">
-
-        <ImageButton
-            android:layout_width="250dp"
-            android:layout_marginTop="-100dp"
-            android:id="@+id/btn_open_local"
-            android:src="@drawable/ic_open_lock"
-            android:backgroundTint="@color/primaryadmin"
-            android:layout_height="250dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:text="Abrir cerradura"
-            android:padding="10dp"
-            android:textColor="@color/black"
-            android:textAlignment="center"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+   <androidx.cardview.widget.CardView
+     android:layout_width="match_parent"
+       app:cardCornerRadius="35dp"
+       android:padding="20dp"
+       android:id="@+id/typeOnline"
+       android:layout_marginRight="15dp"
+       android:layout_marginLeft="15dp"
+       android:layout_marginBottom="15dp"
+       android:backgroundTint="@color/primaryadmin"
+       android:layout_height="wrap_content">
 
     <LinearLayout
        android:layout_width="match_parent"
        android:orientation="vertical"
        android:gravity="center"
-       android:id="@+id/typeOnline"
        android:layout_height="match_parent">
 
         <LinearLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="-100dp"
         android:orientation="horizontal"
         android:gravity="center"
+        android:layout_marginTop="40dp"
         android:layout_height="wrap_content">
 
-        <Button
+        <com.aukde.iotdoor.Utils.PoppinsButton
             android:id="@+id/btn1"
-            android:layout_width="80dp"
+            android:layout_width="70dp"
             android:text="1"
-            android:backgroundTint="@color/black"
-            android:textColor="@color/white"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
             android:layout_marginEnd="5dp"
             android:textSize="24sp"
-            android:layout_height="80dp"/>
+            android:layout_height="70dp"/>
 
-        <Button
+        <com.aukde.iotdoor.Utils.PoppinsButton
             android:id="@+id/btn2"
-            android:layout_width="80dp"
+            android:layout_width="70dp"
             android:text="2"
-            android:backgroundTint="@color/black"
-            android:textColor="@color/white"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
             android:layout_marginEnd="5dp"
             android:textSize="24sp"
-            android:layout_height="80dp"/>
+            android:layout_height="70dp"/>
 
-        <Button
+        <com.aukde.iotdoor.Utils.PoppinsButton
             android:id="@+id/btn3"
-            android:layout_width="80dp"
+            android:layout_width="70dp"
             android:text="3"
-            android:backgroundTint="@color/black"
-            android:textColor="@color/white"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
             android:textSize="24sp"
-            android:layout_height="80dp"/>
+            android:layout_height="70dp"/>
 
     </LinearLayout>
 
@@ -225,34 +189,34 @@
         android:gravity="center"
         android:layout_height="wrap_content">
 
-        <Button
+        <com.aukde.iotdoor.Utils.PoppinsButton
             android:id="@+id/btn4"
-            android:layout_width="80dp"
+            android:layout_width="70dp"
             android:text="4"
             android:layout_marginEnd="5dp"
-            android:backgroundTint="@color/black"
-            android:textColor="@color/white"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
             android:textSize="24sp"
-            android:layout_height="80dp"/>
+            android:layout_height="70dp"/>
 
-        <Button
+        <com.aukde.iotdoor.Utils.PoppinsButton
             android:id="@+id/btn5"
-            android:layout_width="80dp"
+            android:layout_width="70dp"
             android:text="5"
-            android:backgroundTint="@color/black"
-            android:textColor="@color/white"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
             android:layout_marginEnd="5dp"
             android:textSize="24sp"
-            android:layout_height="80dp"/>
+            android:layout_height="70dp"/>
 
-        <Button
+        <com.aukde.iotdoor.Utils.PoppinsButton
             android:id="@+id/btn6"
-            android:layout_width="80dp"
+            android:layout_width="70dp"
             android:text="6"
-            android:backgroundTint="@color/black"
-            android:textColor="@color/white"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
             android:textSize="24sp"
-            android:layout_height="80dp"/>
+            android:layout_height="70dp"/>
 
     </LinearLayout>
 
@@ -262,34 +226,34 @@
         android:gravity="center"
         android:layout_height="wrap_content">
 
-        <Button
+        <com.aukde.iotdoor.Utils.PoppinsButton
             android:id="@+id/btn7"
-            android:layout_width="80dp"
+            android:layout_width="70dp"
             android:text="7"
-            android:backgroundTint="@color/black"
-            android:textColor="@color/white"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
             android:layout_marginEnd="5dp"
             android:textSize="24sp"
-            android:layout_height="80dp"/>
+            android:layout_height="70dp"/>
 
-        <Button
+        <com.aukde.iotdoor.Utils.PoppinsButton
             android:id="@+id/btn8"
-            android:layout_width="80dp"
+            android:layout_width="70dp"
             android:text="8"
-            android:backgroundTint="@color/black"
-            android:textColor="@color/white"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
             android:layout_marginEnd="5dp"
             android:textSize="24sp"
-            android:layout_height="80dp"/>
+            android:layout_height="70dp"/>
 
-        <Button
+        <com.aukde.iotdoor.Utils.PoppinsButton
             android:id="@+id/btn9"
-            android:layout_width="80dp"
+            android:layout_width="70dp"
             android:text="9"
-            android:backgroundTint="@color/black"
-            android:textColor="@color/white"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
             android:textSize="24sp"
-            android:layout_height="80dp"/>
+            android:layout_height="70dp"/>
 
     </LinearLayout>
 
@@ -297,37 +261,96 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:gravity="center"
+        android:layout_marginBottom="40dp"
         android:layout_height="wrap_content">
 
-        <Button
+        <com.aukde.iotdoor.Utils.PoppinsButton
             android:id="@+id/btn0"
-            android:layout_width="80dp"
+            android:layout_width="70dp"
             android:text="0"
-            android:backgroundTint="@color/black"
-            android:textColor="@color/white"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
             android:layout_marginEnd="5dp"
             android:textSize="24sp"
-            android:layout_height="80dp"/>
+            android:layout_height="70dp"/>
 
-        <Button
+        <com.aukde.iotdoor.Utils.PoppinsButton
             android:id="@+id/btn_delete"
-            android:layout_width="80dp"
+            android:layout_width="70dp"
             android:text="C"
             android:layout_marginEnd="5dp"
             android:textSize="24sp"
             android:textColor="@color/white"
             android:backgroundTint="#fc0000"
-            android:layout_height="80dp"/>
+            android:layout_height="70dp"/>
 
-        <Button
+        <com.aukde.iotdoor.Utils.PoppinsButton
             android:id="@+id/btn_ok"
-            android:layout_width="80dp"
+            android:layout_width="70dp"
             android:text="OK"
+            android:textColor="@color/white"
             android:backgroundTint="#5bbd00"
             android:textSize="24sp"
-            android:layout_height="80dp"/>
+            android:layout_height="70dp"/>
 
     </LinearLayout>
+</LinearLayout>
+</androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="50dp"
+            android:visibility="gone"
+            android:id="@+id/typeOffline"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:layout_width="250dp"
+                android:id="@+id/btn_open_local"
+                android:src="@drawable/ic_open_lock"
+                android:backgroundTint="@color/primaryadmin"
+                android:layout_height="250dp"/>
+
+            <com.aukde.iotdoor.Utils.PoppinsTextviewLight
+                android:layout_width="match_parent"
+                android:text="Abrir cerradura"
+                android:padding="10dp"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+
+ <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginEnd="20dp"
+            android:gravity="right"
+            android:layout_marginBottom="8dp"
+            android:layout_height="wrap_content">
+
+            <com.aukde.iotdoor.Utils.PoppinsTextviewLight
+                android:layout_width="wrap_content"
+                android:text = "Dispositivo :  "
+                android:textColor="@color/white"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:src="@drawable/ic_signal_on"
+                android:layout_height="wrap_content"/>
+
+            <com.aukde.iotdoor.Utils.PoppinsTextviewLight
+                android:layout_width="wrap_content"
+                android:text="Conectado"
+                android:textColor="@color/white"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 

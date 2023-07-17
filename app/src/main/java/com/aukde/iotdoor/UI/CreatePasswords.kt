@@ -1,14 +1,13 @@
-package com.aukde.iotdoor
+package com.aukde.iotdoor.UI
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
-import com.aukde.iotdoor.Providers.DataDeviceProvider
+import com.aukde.iotdoor.BaseActivity
+import com.aukde.iotdoor.R
 import com.aukde.iotdoor.databinding.ActivityCreatePasswordsBinding
 import com.google.firebase.database.*
 import es.dmoral.toasty.Toasty
@@ -138,7 +137,7 @@ class CreatePasswords : BaseActivity() {
                         listState.add(valueState)
                     }
                     val arrayAdapter: ArrayAdapter<String> = ArrayAdapter<String>(this@CreatePasswords,
-                            R.layout.support_simple_spinner_dropdown_item, listName)
+                        R.layout.support_simple_spinner_dropdown_item, listName)
                     binding.spUsers.adapter = arrayAdapter
                     binding.progress.visibility = View.GONE
                     binding.spUsers.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

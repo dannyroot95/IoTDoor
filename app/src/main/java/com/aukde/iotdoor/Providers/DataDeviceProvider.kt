@@ -3,11 +3,9 @@ package com.aukde.iotdoor.Providers
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
-import android.widget.Toast
-import com.aukde.iotdoor.PasswordActivity
+import com.aukde.iotdoor.UI.PasswordActivity
 import com.aukde.iotdoor.databinding.ActivityMainBinding
 import com.google.firebase.database.*
-import com.google.firebase.database.ktx.getValue
 
 class DataDeviceProvider {
 

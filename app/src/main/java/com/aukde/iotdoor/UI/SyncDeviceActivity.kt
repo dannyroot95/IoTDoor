@@ -5,7 +5,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.aukde.iotdoor.PasswordActivity
 import com.aukde.iotdoor.Providers.AuthenticationProvider
 import com.aukde.iotdoor.Providers.UserProvider
 import com.aukde.iotdoor.databinding.ActivitySyncDeviceBinding

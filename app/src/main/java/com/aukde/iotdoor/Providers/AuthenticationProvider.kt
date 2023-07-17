@@ -1,8 +1,8 @@
 package com.aukde.iotdoor.Providers
 
 import android.content.Context
-import com.aukde.iotdoor.HistoryModel
-import com.aukde.iotdoor.PasswordActivity
+import com.aukde.iotdoor.Models.HistoryModel
+import com.aukde.iotdoor.UI.PasswordActivity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
@@ -24,7 +24,7 @@ class AuthenticationProvider {
         return mAuth.signInWithEmailAndPassword(email, password)
     }
 
-    fun registerHistory(historyModel: HistoryModel, activity:PasswordActivity) : Task<Void>{
+    fun registerHistory(historyModel: HistoryModel, activity: PasswordActivity) : Task<Void>{
         val sharedPreferencesDevice = activity.getSharedPreferences("cache", Context.MODE_PRIVATE)
         val id = sharedPreferencesDevice.getString("keyDevice", "")!!
         val map: MutableMap<String, Any> = HashMap()

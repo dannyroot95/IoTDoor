@@ -1,4 +1,4 @@
-package com.aukde.iotdoor
+package com.aukde.iotdoor.UI
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -8,11 +8,13 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.aukde.iotdoor.*
+import com.aukde.iotdoor.Models.HistoryModel
 import com.aukde.iotdoor.Providers.AuthenticationProvider
 import com.aukde.iotdoor.Providers.DataDeviceProvider
+import com.aukde.iotdoor.R
 import com.aukde.iotdoor.databinding.ActivityMainBinding
 import com.google.firebase.database.*
-import com.google.zxing.integration.android.IntentIntegrator
 import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -91,10 +93,10 @@ class PasswordActivity : BaseActivity() {
         }
 
         binding.btnCreateClave.setOnClickListener {
-            startActivity(Intent(this,CreatePasswords::class.java))
+            startActivity(Intent(this, CreatePasswords::class.java))
         }
         binding.btnRecord.setOnClickListener {
-            startActivity(Intent(this,Record::class.java))
+            startActivity(Intent(this, Record::class.java))
         }
         binding.btnLogout.setOnClickListener {
 
@@ -105,7 +107,7 @@ class PasswordActivity : BaseActivity() {
 
             builder.setPositiveButton("SI") { dialog, which ->
                 mAuth.logout(this)
-                startActivity(Intent(this,LoginActivity::class.java))
+                startActivity(Intent(this, LoginActivity::class.java))
                 finish()
             }
 

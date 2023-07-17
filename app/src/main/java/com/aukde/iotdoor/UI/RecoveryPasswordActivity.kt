@@ -1,7 +1,8 @@
-package com.aukde.iotdoor
+package com.aukde.iotdoor.UI
 
 import android.os.Bundle
 import android.widget.Toast
+import com.aukde.iotdoor.BaseActivity
 import com.aukde.iotdoor.databinding.ActivityRecoveryPasswordBinding
 import com.google.firebase.auth.FirebaseAuth
 import es.dmoral.toasty.Toasty

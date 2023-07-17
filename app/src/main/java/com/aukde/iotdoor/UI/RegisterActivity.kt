@@ -1,9 +1,11 @@
-package com.aukde.iotdoor
+package com.aukde.iotdoor.UI
 
 import android.os.Bundle
 import android.widget.Toast
+import com.aukde.iotdoor.BaseActivity
 import com.aukde.iotdoor.Providers.AuthenticationProvider
 import com.aukde.iotdoor.Providers.UserProvider
+import com.aukde.iotdoor.Models.User
 import com.aukde.iotdoor.databinding.ActivityRegisterBinding
 import es.dmoral.toasty.Toasty
 

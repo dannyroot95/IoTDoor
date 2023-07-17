@@ -1,11 +1,11 @@
-package com.aukde.iotdoor
+package com.aukde.iotdoor.UI
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import com.aukde.iotdoor.BaseActivity
 import com.aukde.iotdoor.Providers.AuthenticationProvider
-import com.aukde.iotdoor.UI.SyncDeviceActivity
 import com.aukde.iotdoor.databinding.ActivityLoginBinding
 import com.google.firebase.database.*
 import es.dmoral.toasty.Toasty
@@ -132,7 +132,7 @@ class LoginActivity : BaseActivity() {
             val sharedPreferencesDevice = this.getSharedPreferences("cache", Context.MODE_PRIVATE)
             val id = sharedPreferencesDevice.getString("keyDevice", "")!!
             if(id != ""){
-                startActivity(Intent(this,PasswordActivity::class.java))
+                startActivity(Intent(this, PasswordActivity::class.java))
                 finish()
             }else{
                 startActivity(Intent(this,SyncDeviceActivity::class.java))

@@ -1,9 +1,12 @@
-package com.aukde.iotdoor
+package com.aukde.iotdoor.UI
 
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aukde.iotdoor.BaseActivity
+import com.aukde.iotdoor.Models.HistoryModel
 import com.aukde.iotdoor.Providers.UserProvider
+import com.aukde.iotdoor.Adapters.RecordAdapter
 import com.aukde.iotdoor.databinding.ActivityRecordBinding
 
 class Record : BaseActivity() {

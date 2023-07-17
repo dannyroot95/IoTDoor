@@ -38,7 +38,7 @@
             android:textColorHint="@color/blackgray"
             android:layout_height="wrap_content">
 
-            <EditText
+            <com.aukde.iotdoor.Utils.PoppinsEditText
                 android:layout_width="match_parent"
                 android:id="@+id/edt_email"
                 tools:ignore="Autofill,LabelFor"
@@ -59,7 +59,7 @@
             android:textColorHint="@color/blackgray"
             android:layout_height="wrap_content">
 
-            <EditText
+            <com.aukde.iotdoor.Utils.PoppinsEditText
                 android:layout_width="match_parent"
                 android:id="@+id/edt_password"
                 android:textColor="@color/black"
@@ -69,7 +69,7 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
+        <com.aukde.iotdoor.Utils.PoppinsTextviewLight
             android:id="@+id/tv_forgot_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -80,10 +80,8 @@
             android:textColor="@color/black"
             android:textSize="14sp"/>
 
-        <com.google.android.material.button.MaterialButton
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+        <com.aukde.iotdoor.Utils.PoppinsButton
             android:id="@+id/btn_login"
-            app:cornerRadius="12dp"
             android:layout_width="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="12dp"
@@ -100,7 +98,7 @@
             android:gravity="center"
             android:layout_height="wrap_content">
 
-            <TextView
+            <com.aukde.iotdoor.Utils.PoppinsTextviewLight
                 android:id="@+id/tv_don_t_have_an_account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -109,7 +107,7 @@
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
-            <TextView
+            <com.aukde.iotdoor.Utils.PoppinsTextviewSemiBold
                 android:id="@+id/tv_register"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
@@ -123,7 +121,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
+    <com.aukde.iotdoor.Utils.PoppinsTextviewLight
         android:layout_width="wrap_content"
         android:text="v1.0 \nDesarrollado por AUKDE"
         android:textSize="12sp"
