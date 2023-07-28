@@ -34,7 +34,7 @@
             android:layout_gravity="center"
             android:layout_height="wrap_content">
 
-            <TextView
+            <com.aukde.iotdoor.Utils.PoppinsTextviewLight
                 android:id="@+id/tv_progress_text"
                 android:gravity="center"
                 android:layout_weight="1"

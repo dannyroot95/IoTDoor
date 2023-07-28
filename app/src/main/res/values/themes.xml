@@ -10,7 +10,8 @@
         <item name="colorSecondaryVariant">@color/secondaryadmin</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/primaryadminvariant</item>
+        <item name="android:navigationBarColor">@color/primaryadminvariant</item>
         <!-- Customize your theme here. -->
     </style>
 

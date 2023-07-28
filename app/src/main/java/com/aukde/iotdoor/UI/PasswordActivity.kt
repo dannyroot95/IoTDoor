@@ -1,11 +1,15 @@
 package com.aukde.iotdoor.UI
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
+import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.aukde.iotdoor.*
@@ -14,6 +18,7 @@ import com.aukde.iotdoor.Providers.AuthenticationProvider
 import com.aukde.iotdoor.Providers.DataDeviceProvider
 import com.aukde.iotdoor.R
 import com.aukde.iotdoor.databinding.ActivityMainBinding
+import com.aukde.iotdoor.databinding.DialogLayoutBinding
 import com.google.firebase.database.*
 import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.Dispatchers
@@ -33,10 +38,26 @@ class PasswordActivity : BaseActivity() {
     var name : String = ""
     val client = OkHttpClient()
 
+    private val handler = Handler()
+    private val interval: Long = 30 * 1000 // 30 segundos en milisegundos
+    private var counter = 0
+    private val maxCounter = 5
+
+    private lateinit var dialog: Dialog
+    private lateinit var optionsBinding : DialogLayoutBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        optionsBinding = DialogLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        dialog = Dialog(this)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(0))
+        dialog.setContentView(optionsBinding.root)
+        dialog.setCancelable(false)
+        val window: Window = dialog.window!!
+        window.setLayout(950, 1400)
+
         viewButtons()
 
         DataDeviceProvider().getData(binding,this)
@@ -44,6 +65,7 @@ class PasswordActivity : BaseActivity() {
         preference = getSharedPreferences("fullname", MODE_PRIVATE)
         name = preference.getString("key","").toString()
         //checkingProximitySensor()
+        changeTextEvery30Seconds()
 
         binding.btnOk.setOnClickListener {
             if (binding.edtPassword.text.isNotEmpty()){
@@ -56,23 +78,34 @@ class PasswordActivity : BaseActivity() {
                         if (snapshot.exists() && snapshot.hasChild("password")) {
                             val datapassword = snapshot.child("password").value.toString()
                             val state = snapshot.child("stateUser").value.toString()
-                            if (state != "blocked"){
-                                if (datapassword == password){
-                                    val history =  HistoryModel(name,System.currentTimeMillis())
-                                    mDatabase.child("devices").child(id).child("status").setValue("open")
-                                    mAuth.registerHistory(history,this@PasswordActivity)
-                                    binding.edtPassword.setText("")
-                                    hideDialog()
-                                    Toasty.success(this@PasswordActivity, "ABIERTO!", Toast.LENGTH_LONG).show()
+                            val time = (binding.time.text.toString()).toLong()
+                            val minuteInSeconds = 60
+                            val currentTime = System.currentTimeMillis()/1000
+
+                            if (currentTime - time < minuteInSeconds) {
+
+                                if (state != "blocked"){
+                                    if (datapassword == password){
+                                        val history =  HistoryModel(name,System.currentTimeMillis())
+                                        mDatabase.child("devices").child(id).child("status").setValue("open")
+                                        mAuth.registerHistory(history,this@PasswordActivity)
+                                        binding.edtPassword.setText("")
+                                        hideDialog()
+                                        Toasty.success(this@PasswordActivity, "ABIERTO!", Toast.LENGTH_LONG).show()
+                                    }
+                                    else{
+                                        hideDialog()
+                                        Toasty.error(this@PasswordActivity, "Contraseña incorrecta!", Toast.LENGTH_SHORT).show()
+                                    }
                                 }
                                 else{
                                     hideDialog()
-                                    Toasty.error(this@PasswordActivity, "Contraseña incorrecta!", Toast.LENGTH_SHORT).show()
+                                    Toasty.error(this@PasswordActivity, "USUARIO BLOQUEADO!", Toast.LENGTH_SHORT).show()
                                 }
-                            }
-                            else{
+
+                            }else{
                                 hideDialog()
-                                Toasty.error(this@PasswordActivity, "USUARIO BLOQUEADO!", Toast.LENGTH_SHORT).show()
+                                Toasty.error(this@PasswordActivity, "DISPOSITIVO DESCONECTADO!", Toast.LENGTH_SHORT).show()
                             }
 
                         } else {
@@ -91,15 +124,14 @@ class PasswordActivity : BaseActivity() {
                 Toasty.info(this@PasswordActivity,"Digite la clave!",Toast.LENGTH_SHORT).show()
             }
         }
-
-        binding.btnCreateClave.setOnClickListener {
-            startActivity(Intent(this, CreatePasswords::class.java))
-        }
         binding.btnRecord.setOnClickListener {
             startActivity(Intent(this, Record::class.java))
         }
-        binding.btnLogout.setOnClickListener {
+        binding.btnMenu.setOnClickListener {
+            dialog.show()
+        }
 
+        optionsBinding.cvLogout.setOnClickListener {
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Hey!")
             builder.setIcon(R.drawable.ic_logout)
@@ -117,6 +149,13 @@ class PasswordActivity : BaseActivity() {
             builder.show()
         }
 
+        optionsBinding.btnClose.setOnClickListener {
+            dialog.dismiss()
+        }
+        optionsBinding.cvUsers.setOnClickListener {
+            startActivity(Intent(this, CreatePasswords::class.java))
+        }
+
         binding.btnOpenLocal.setOnClickListener {
             showDialog("Abriendo puerta...")
             GlobalScope.launch(Dispatchers.IO) {
@@ -132,8 +171,20 @@ class PasswordActivity : BaseActivity() {
             }
         }
 
-        binding.sw.isChecked = true
-        binding.type.text = "Online"
+        val sharedPreferences= getSharedPreferences("cache", Context.MODE_PRIVATE)
+        val typeUser = sharedPreferences.getString("keyTypeUser","").toString()
+
+        if(typeUser != "root"){
+            binding.type.text = "Offline"
+            binding.typeOffline.visibility = View.VISIBLE
+            binding.typeOnline.visibility = View.GONE
+            binding.edtPassword.visibility = View.GONE
+            optionsBinding.cvUsers.visibility = View.GONE
+        }else{
+            binding.sw.isChecked = true
+            binding.type.text = "Online"
+        }
+
         binding.sw.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 binding.type.text = "Online"
@@ -197,25 +248,6 @@ class PasswordActivity : BaseActivity() {
         }
     }
 
-
-    private fun checkingProximitySensor(){
-        mDatabase.child("distance").addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()){
-                    val value = snapshot.value
-                    val valueInt = Integer.parseInt(value.toString())
-                    if(valueInt in 50..120){
-                        Toast.makeText(this@PasswordActivity,"Estas Cerca",Toast.LENGTH_SHORT).show()
-                    }else{
-                        Toast.makeText(this@PasswordActivity,"OFF",Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {}
-        })
-    }
-
     override fun onBackPressed() {
     }
 
@@ -248,6 +280,27 @@ class PasswordActivity : BaseActivity() {
         }else{
             Toasty.error(this@PasswordActivity, "No existe IP local!", Toast.LENGTH_LONG).show()
         }
+    }
+
+    private fun changeTextEvery30Seconds() {
+        handler.post(object : Runnable {
+            override fun run() {
+                // Cambiar el texto del TextView aquí
+                DataDeviceProvider().isConnect(binding,this@PasswordActivity)
+
+                counter++
+
+                if (counter < maxCounter) {
+                    handler.postDelayed(this, interval)
+                }
+            }
+        })
+    }
+
+    override fun onDestroy() {
+        // Detén el handler cuando la actividad es destruida para evitar pérdidas de memoria
+        handler.removeCallbacksAndMessages(null)
+        super.onDestroy()
     }
 
 }

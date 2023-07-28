@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            app:cardCornerRadius="12dp"
+            android:backgroundTint="@color/item"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="22dp"
+                android:gravity="right"
+                android:elevation="1dp"
+                android:layout_marginRight="15dp"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:background="@color/red"
+                    android:id="@+id/btn_close"
+                    android:clickable="true"
+                    android:src="@drawable/close_diag"
+                    android:layout_height="30dp"/>
+
+            </LinearLayout>
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:padding="14dp"
+                                android:layout_marginTop="55dp"
+                                android:orientation="horizontal"
+                                android:layout_height="wrap_content"
+                                tools:ignore="UselessParent">
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="match_parent"
+                                    android:id="@+id/cv_users"
+                                    app:cardCornerRadius="8dp"
+                                    android:backgroundTint="@color/white"
+                                    android:layout_height="wrap_content">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:orientation="horizontal"
+                                        android:layout_height="wrap_content">
+
+                                        <ImageView
+                                            android:layout_width="60dp"
+                                            android:src="@drawable/icon_users"
+                                            android:layout_height="60dp"/>
+
+                                        <com.aukde.iotdoor.Utils.PoppinsTextviewLight
+                                            android:layout_width="0dp"
+                                            android:layout_weight="1"
+                                            android:textSize="18dp"
+                                            android:gravity="center"
+                                            android:text="Gestión de usuarios"
+                                            android:layout_height="match_parent"/>
+
+                                    </LinearLayout>
+
+                                </androidx.cardview.widget.CardView>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:padding="14dp"
+                                android:layout_marginTop="-15dp"
+                                android:orientation="horizontal"
+                                android:layout_height="wrap_content"
+                                tools:ignore="UselessParent">
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="match_parent"
+                                    android:id="@+id/cv_logout"
+                                    app:cardCornerRadius="8dp"
+                                    android:backgroundTint="@color/white"
+                                    android:layout_height="wrap_content">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:orientation="horizontal"
+                                        android:layout_height="wrap_content">
+
+                                        <ImageView
+                                            android:layout_width="60dp"
+                                            android:src="@drawable/icon_logout"
+                                            android:layout_height="60dp"/>
+
+                                        <com.aukde.iotdoor.Utils.PoppinsTextviewLight
+                                            android:layout_width="0dp"
+                                            android:layout_weight="1"
+                                            android:textSize="18dp"
+                                            android:gravity="center"
+                                            android:text="Cerrar sesión"
+                                            android:layout_height="match_parent"/>
+
+                                    </LinearLayout>
+
+                                </androidx.cardview.widget.CardView>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+                        
+                    </ScrollView>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</LinearLayout>

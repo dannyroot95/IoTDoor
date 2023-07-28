@@ -10,9 +10,10 @@
     <color name="lightgray">#D5D8DC</color>
     <color name="blackgray">#808B96</color>
 
-    <color name="primaryadmin">#210030</color>
-    <color name="primaryadminvariant">#370051</color>
-
-    <color name="secondaryadmin">#8303C1</color>
-    <color name="secondaryadminvariant">#570081</color>
+    <color name="primaryadmin">#00346C</color>
+    <color name="primaryadminvariant">#014793</color>
+    <color name="item">#00597A</color>
+    <color name="red">#D10000</color>
+    <color name="secondaryadmin">#0157B5</color>
+    <color name="secondaryadminvariant">#014368</color>
 </resources>

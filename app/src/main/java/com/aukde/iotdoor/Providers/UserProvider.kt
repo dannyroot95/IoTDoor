@@ -1,5 +1,6 @@
 package com.aukde.iotdoor.Providers
 
+import android.content.Context
 import com.aukde.iotdoor.Models.HistoryModel
 import com.aukde.iotdoor.UI.Record
 import com.aukde.iotdoor.Models.User
@@ -33,6 +34,7 @@ class UserProvider {
     fun updateDeviceAndRoot(device: String,root:String): Task<Void> {
         val map: MutableMap<String, Any> = HashMap()
         map["device"] = device
+        map["password"] = "1010"
         map["typeUser"] = root
         return mDatabase.child("users").child(AuthenticationProvider().getId()).updateChildren(map)
     }

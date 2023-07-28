@@ -1,5 +1,6 @@
 package com.aukde.iotdoor.UI
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -43,6 +44,7 @@ class LoginActivity : BaseActivity() {
                 if (task.isSuccessful){
                     val id = task.result!!.user!!.uid
                     mDatabase.child("users").child(id).addListenerForSingleValueEvent(object : ValueEventListener{
+                        @SuppressLint("CommitPrefEdits")
                         override fun onDataChange(snapshot: DataSnapshot) {
                             if (snapshot.exists()){
 
@@ -58,14 +60,17 @@ class LoginActivity : BaseActivity() {
                                     if(device != ""){
                                         val sharedPreferences= getSharedPreferences("cache", Context.MODE_PRIVATE)
                                         val editorFullname = sharedPreferences.edit()
-                                        //val sharedPreferencesDevice = getSharedPreferences("cache", Context.MODE_PRIVATE)
                                         val editorDevice = sharedPreferences.edit()
+                                        val editorTypeUser = sharedPreferences.edit()
 
                                         editorFullname.putString("key",name)
                                         editorFullname.apply()
 
                                         editorDevice.putString("keyDevice",device)
                                         editorDevice.apply()
+
+                                        editorTypeUser.putString("keyTypeUser",type)
+                                        editorTypeUser.apply()
 
                                         hideDialog()
                                         val intent = Intent(this@LoginActivity, PasswordActivity::class.java)
@@ -81,14 +86,17 @@ class LoginActivity : BaseActivity() {
                                     if(device != ""){
                                         val sharedPreferences= getSharedPreferences("cache", Context.MODE_PRIVATE)
                                         val editorFullname = sharedPreferences.edit()
-                                        //val sharedPreferencesDevice = getSharedPreferences("cache", Context.MODE_PRIVATE)
                                         val editorDevice = sharedPreferences.edit()
+                                        val editorTypeUser = sharedPreferences.edit()
 
                                         editorFullname.putString("key",name)
                                         editorFullname.apply()
 
                                         editorDevice.putString("keyDevice",device)
                                         editorDevice.apply()
+
+                                        editorTypeUser.putString("keyTypeUser",type)
+                                        editorTypeUser.apply()
 
                                         hideDialog()
                                         val intent = Intent(this@LoginActivity, PasswordActivity::class.java)
