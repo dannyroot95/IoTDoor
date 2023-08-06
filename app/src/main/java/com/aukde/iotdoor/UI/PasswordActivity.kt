@@ -253,8 +253,7 @@ class PasswordActivity : BaseActivity() {
 
     private fun openDoor() {
 
-        val sharedPreferences= this.getSharedPreferences("webServer", Context.MODE_PRIVATE)
-        val ip = sharedPreferences.getString("keyWebServer", "")!!
+        val ip = binding.ipDevice.text.toString()
 
         if(ip != "") {
             val url = "http://$ip/toggle" // Reemplaza con la IP del ESP32

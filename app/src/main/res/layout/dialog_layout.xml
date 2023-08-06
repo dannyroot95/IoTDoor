@@ -14,7 +14,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             app:cardCornerRadius="12dp"
-            android:backgroundTint="@color/item"
+            android:backgroundTint="@color/primaryadmin"
             android:layout_height="match_parent">
 
             <LinearLayout
@@ -73,7 +73,7 @@
                                         <com.aukde.iotdoor.Utils.PoppinsTextviewLight
                                             android:layout_width="0dp"
                                             android:layout_weight="1"
-                                            android:textSize="18dp"
+                                            android:textSize="14dp"
                                             android:gravity="center"
                                             android:text="Gestión de usuarios"
                                             android:layout_height="match_parent"/>
@@ -112,7 +112,7 @@
                                         <com.aukde.iotdoor.Utils.PoppinsTextviewLight
                                             android:layout_width="0dp"
                                             android:layout_weight="1"
-                                            android:textSize="18dp"
+                                            android:textSize="14dp"
                                             android:gravity="center"
                                             android:text="Cerrar sesión"
                                             android:layout_height="match_parent"/>
