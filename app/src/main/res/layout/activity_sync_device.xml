@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:textAlignment="center"
         android:textSize="18dp"
+        android:layout_marginTop="-50dp"
         android:text="Escanea tu dispositivo"
         android:layout_height="wrap_content"/>
 
@@ -26,12 +27,14 @@
         android:layout_width="match_parent"
         android:textAlignment="center"
         android:text="ó"
+        android:visibility="invisible"
         android:layout_height="wrap_content"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:padding="20dp"
+        android:visibility="invisible"
         android:gravity="center"
         android:layout_height="wrap_content">
 

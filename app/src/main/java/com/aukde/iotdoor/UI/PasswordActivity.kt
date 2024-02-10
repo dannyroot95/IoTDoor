@@ -155,6 +155,9 @@ class PasswordActivity : BaseActivity() {
         optionsBinding.cvUsers.setOnClickListener {
             startActivity(Intent(this, CreatePasswords::class.java))
         }
+        optionsBinding.cvDevices.setOnClickListener {
+            startActivity(Intent(this, SyncDeviceActivity::class.java))
+        }
 
         binding.btnOpenLocal.setOnClickListener {
             showDialog("Abriendo puerta...")
