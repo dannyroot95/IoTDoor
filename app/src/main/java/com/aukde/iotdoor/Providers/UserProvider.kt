@@ -46,7 +46,9 @@ class UserProvider {
     }
 
     fun getHistoryUsers(activity : Record, date : String){
-        mHistory.child("history").get().addOnSuccessListener { snapshot ->
+        val sharedPreferencesDevice = activity.getSharedPreferences("cache", Context.MODE_PRIVATE)
+        val id = sharedPreferencesDevice.getString("keyDevice", "")!!
+        mHistory.child("devices").child(id).child("history").limitToLast(20).get().addOnSuccessListener { snapshot ->
             val historyList : ArrayList<HistoryModel> = ArrayList()
             for (i in snapshot.children){
                 val data = i.getValue(HistoryModel::class.java)

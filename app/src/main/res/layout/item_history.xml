@@ -18,7 +18,7 @@
             android:src="@drawable/ic_people"
             android:layout_height="wrap_content"/>
 
-        <TextView
+        <com.aukde.iotdoor.Utils.PoppinsTextviewLight
             android:id="@+id/it_name"
             android:layout_width="wrap_content"
             android:layout_weight="1"
@@ -41,7 +41,7 @@
             android:src="@drawable/ic_date"
             android:layout_height="wrap_content"/>
 
-        <TextView
+        <com.aukde.iotdoor.Utils.PoppinsTextviewLight
             android:id="@+id/it_date"
             android:layout_width="wrap_content"
             android:layout_weight="1"

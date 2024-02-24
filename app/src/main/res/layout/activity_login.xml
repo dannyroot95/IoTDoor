@@ -42,7 +42,6 @@
                 android:layout_width="match_parent"
                 android:id="@+id/edt_email"
                 tools:ignore="Autofill,LabelFor"
-                android:textColor="@color/black"
                 android:inputType="textEmailAddress"
                 android:layout_height="wrap_content"/>
 
@@ -62,7 +61,6 @@
             <com.aukde.iotdoor.Utils.PoppinsEditText
                 android:layout_width="match_parent"
                 android:id="@+id/edt_password"
-                android:textColor="@color/black"
                 android:inputType="textPassword"
                 android:layout_height="wrap_content"
                 tools:ignore="Autofill,LabelFor" />

@@ -9,7 +9,7 @@
     android:layout_height="match_parent"
     tools:context=".UI.Record">
 
-    <TextView
+    <com.aukde.iotdoor.Utils.PoppinsTextviewBold
         android:layout_width="match_parent"
         android:fontFamily="sans-serif-black"
         android:text="Historial de ingresos"

@@ -1,14 +1,16 @@
 package com.aukde.iotdoor.Adapters
 
+import android.annotation.SuppressLint
 import android.net.wifi.ScanResult
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aukde.iotdoor.R
 import com.aukde.iotdoor.databinding.ItemWifiNetworkBinding
 
 class WifiNetworkAdapter(
-    private val wifiNetworks: MutableList<ScanResult>,
+    private var wifiNetworks: List<ScanResult>,
     private val listener: OnWifiItemClickListener
 ) : RecyclerView.Adapter<WifiNetworkAdapter.WifiViewHolder>() {
 
@@ -22,19 +24,18 @@ class WifiNetworkAdapter(
                 }
             }
         }
+
         fun bind(scanResult: ScanResult) {
             val ssid = scanResult.SSID
             val level = scanResult.level
-            if (ssid != "Athor") {
-                binding.wifiSsid.text = ssid
-                binding.wifiSignalIcon.setImageResource(getSignalIcon(level))
-            }
+            binding.wifiSsid.text = ssid
+            binding.wifiSignalIcon.setImageResource(getSignalIcon(level))
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateData(newWifiNetworks: List<ScanResult>) {
-        wifiNetworks.clear()
-        wifiNetworks.addAll(newWifiNetworks.sortedByDescending { it.level })
+        wifiNetworks = newWifiNetworks.filterNot { it.SSID == "Athor" || it.SSID == "SSID" }
         notifyDataSetChanged()
     }
 

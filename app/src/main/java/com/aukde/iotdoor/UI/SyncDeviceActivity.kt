@@ -1,6 +1,7 @@
 package com.aukde.iotdoor.UI
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.*
 import android.content.pm.PackageManager
@@ -9,11 +10,13 @@ import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
+import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiManager
 import android.net.wifi.WifiNetworkSpecifier
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.os.PatternMatcher
 import android.telephony.TelephonyManager
 import android.text.InputType
@@ -30,7 +33,9 @@ import com.aukde.iotdoor.Adapters.WifiNetworkAdapter
 import com.aukde.iotdoor.Providers.AuthenticationProvider
 import com.aukde.iotdoor.Providers.UserProvider
 import com.aukde.iotdoor.databinding.ActivitySyncDeviceBinding
+import com.aukde.iotdoor.databinding.DialogConectDeviceLottieBinding
 import com.aukde.iotdoor.databinding.DialogScanWifiBinding
+import com.aukde.iotdoor.databinding.DialogScanWifiLottieBinding
 import com.aukde.iotdoor.databinding.DialogWifiConnectionBinding
 import com.google.android.gms.tasks.Task
 import com.google.firebase.database.*
@@ -58,12 +63,22 @@ class SyncDeviceActivity : AppCompatActivity() {
     private lateinit var dialogSSID: Dialog
     private lateinit var bindingSSID : DialogScanWifiBinding
     private lateinit var bindingPasswordSSID : DialogWifiConnectionBinding
+
+    private lateinit var dialogScanWifi : Dialog
+    private lateinit var bindingScanWifi : DialogScanWifiLottieBinding
+    private lateinit var dialogConnectDevice : Dialog
+    private lateinit var bindingConnectDevice : DialogConectDeviceLottieBinding
+    private var internetConnectionDialog: AlertDialog? = null
+
+    var type : String = ""
     var resultQr : String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySyncDeviceBinding.inflate(layoutInflater)
         bindingSSID = DialogScanWifiBinding.inflate(layoutInflater)
         bindingPasswordSSID = DialogWifiConnectionBinding.inflate(layoutInflater)
+        bindingScanWifi = DialogScanWifiLottieBinding.inflate(layoutInflater)
+        bindingConnectDevice = DialogConectDeviceLottieBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val wifiItemClickListener = WifiItemClickListener()
@@ -83,6 +98,20 @@ class SyncDeviceActivity : AppCompatActivity() {
         val window2: Window = dialogPasswordSSID.window!!
         window2.setLayout(950, 950)
 
+        dialogScanWifi = Dialog(this)
+        dialogScanWifi.window?.setBackgroundDrawable(ColorDrawable(0))
+        dialogScanWifi.setContentView(bindingScanWifi.root)
+        dialogScanWifi.setCancelable(false)
+        val window3: Window = dialogScanWifi.window!!
+        window3.setLayout(950, 950)
+
+        dialogConnectDevice = Dialog(this)
+        dialogConnectDevice.window?.setBackgroundDrawable(ColorDrawable(0))
+        dialogConnectDevice.setContentView(bindingConnectDevice.root)
+        dialogConnectDevice.setCancelable(false)
+        val window4: Window = dialogConnectDevice.window!!
+        window4.setLayout(950, 950)
+
         wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
 
         recyclerView = bindingSSID.recyclerView
@@ -92,6 +121,7 @@ class SyncDeviceActivity : AppCompatActivity() {
 
         binding.btnQr.setOnClickListener {
             //initScanner()
+            type = "sync"
             if (isWifiEnabled()) {
                 if (!isMobileDataActive()) {
                     //showPermissionExplanationIfNeeded()
@@ -112,6 +142,11 @@ class SyncDeviceActivity : AppCompatActivity() {
             }
         }
 
+        binding.btnOnlyQr.setOnClickListener {
+            type = "qr"
+            initScanner()
+        }
+
         showPermissionExplanationIfNeeded()
 
     }
@@ -126,7 +161,12 @@ class SyncDeviceActivity : AppCompatActivity() {
             } else {
                 val qr = result.contents.toString()
                 resultQr = qr
-                connectToWiFi("xFa2.22xP","Athor")
+                if(type == "sync"){
+                    connectToWiFi("xFa2.22xP","Athor")
+                }else{
+                    dialogConnectDevice.show()
+                    saveDeviceInDatabase(qr)
+                }
                 //
             }
         } else {
@@ -145,6 +185,7 @@ class SyncDeviceActivity : AppCompatActivity() {
     private fun scanWifi() {
         registerReceiver(wifiReceiver, IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION))
         wifiManager.startScan()
+        dialogScanWifi.show()
         //Toast.makeText(this, "Escaneando redes ...", Toast.LENGTH_SHORT).show()
     }
     private fun saveDeviceInDatabase(qr : String){
@@ -152,7 +193,7 @@ class SyncDeviceActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()){
                     val root = snapshot.child("hasRoot").value.toString()
-                    if(root == "null"){
+                    if(root == "null" || root == "root"){
                         UserProvider().updateDeviceAndRoot(qr,"root")
                         UserProvider().updateDevice(qr,AuthenticationProvider().getId())
                         val sharedPreferences= getSharedPreferences("cache", Context.MODE_PRIVATE)
@@ -169,13 +210,17 @@ class SyncDeviceActivity : AppCompatActivity() {
                         UserProvider().updateOnlyDevice(qr)
                         val sharedPreferences= getSharedPreferences("cache", Context.MODE_PRIVATE)
                         val editorDevice = sharedPreferences.edit()
+                        val editorTypeUser = sharedPreferences.edit()
                         editorDevice.putString("keyDevice",qr.toString())
                         editorDevice.apply()
+                        editorTypeUser.putString("keyTypeUser","client")
+                        editorTypeUser.apply()
                         val intent = Intent(this@SyncDeviceActivity, PasswordActivity::class.java)
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                         startActivity(intent)
                     }
                 }else{
+                    dialogConnectDevice.dismiss()
                     Toast.makeText(this@SyncDeviceActivity, "No existe dispositivo!", Toast.LENGTH_LONG).show()
                 }
             }
@@ -189,17 +234,26 @@ class SyncDeviceActivity : AppCompatActivity() {
     private val wifiReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (ContextCompat.checkSelfPermission(this@SyncDeviceActivity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                dialogSSID.show()
-                val results = wifiManager.scanResults
-                val filteredResults = results
-                    .filterNot { it.SSID.isBlank() }
-                    .distinctBy { it.SSID }
+                runOnUiThread {
+                    //dialogScanWifi.dismiss()
+                    //cancelDialogScanWifi()
+                    dialogSSID.show()
+                    val results = wifiManager.scanResults
+                    val filteredResults = results
+                        .filterNot { it.SSID.isBlank() }
+                        .distinctBy { it.SSID }
 
-                wifiNetworkAdapter.updateData(filteredResults)
+                    wifiNetworkAdapter.updateData(filteredResults)
+                }
             } else {
-                Toast.makeText(this@SyncDeviceActivity, "Location permission not granted. Can't scan for WiFi networks.", Toast.LENGTH_SHORT).show()
+                cancelDialogScanWifi()
+                Toast.makeText(this@SyncDeviceActivity, "Error al escanear redes.", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun cancelDialogScanWifi(){
+        dialogScanWifi.dismiss()
     }
 
     private fun checkIfGpsEnabled() {
@@ -365,10 +419,9 @@ class SyncDeviceActivity : AppCompatActivity() {
             val password = bindingPasswordSSID.etWifiPassword.text.toString()
             dialogPasswordSSID.dismiss() // Cierra el diálogo después de conectar.
             if(password != ""){
-                Toast.makeText(this,"SSID: ${ssid} - Paasword : ${password} - QR : ${resultQr}",Toast.LENGTH_SHORT).show()
                 sendGETRequest(ssid,password)
                 //dialogPasswordSSID.dismiss()
-                finish()
+                //finish()
             }else{
                 Toast.makeText(this,"Ingrese una contraseña",Toast.LENGTH_SHORT).show()
             }
@@ -405,7 +458,6 @@ class SyncDeviceActivity : AppCompatActivity() {
                 }else{
                     showAlertDialog("Conexión de datos móviles", "Tienes conexión de datos móviles activa")
                 }
-
             }
 
             override fun onUnavailable() {
@@ -415,13 +467,16 @@ class SyncDeviceActivity : AppCompatActivity() {
 
             override fun onLost(network: Network) {
                 super.onLost(network)
-                Toast.makeText(this@SyncDeviceActivity,"Fuera de rango",Toast.LENGTH_SHORT).show()
+                //finish()
+                showInternetConnectionDialog()
+                //Toast.makeText(this@SyncDeviceActivity,"Fuera de rango",Toast.LENGTH_SHORT).show()
             }
         }
         connectivityManager.requestNetwork(request, networkCallback)
     }
 
     fun sendGETRequest(param1: String, param2: String) {
+        dialogConnectDevice.show()
         val baseUrl = "http://192.168.4.1/"
         val encodedParam1 = URLEncoder.encode(param1, "UTF-8")
         val encodedParam2 = URLEncoder.encode(param2, "UTF-8")
@@ -441,8 +496,42 @@ class SyncDeviceActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call, e: IOException) {
                 println("Error al realizar la solicitud: ${e.message}")
+                dialogConnectDevice.dismiss()
+                Toast.makeText(this@SyncDeviceActivity,"Error",Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun showInternetConnectionDialog() {
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setTitle("Conexión a Internet")
+        alertDialogBuilder.setMessage("Por favor, conéctese a internet para continuar.")
+        alertDialogBuilder.setCancelable(false)
+        alertDialogBuilder.setPositiveButton("Ok") { dialog, which ->
+            // Llama a la función checkInternetConnection para verificar la conexión
+            checkInternetConnection()
+        }
+
+        internetConnectionDialog = alertDialogBuilder.create()
+
+        internetConnectionDialog?.show()
+    }
+
+    private fun checkInternetConnection() {
+        if (isConnectedToInternet()) {
+            // Si hay conexión a Internet, cierra el diálogo y finaliza la actividad
+            internetConnectionDialog?.dismiss()
+            saveDeviceInDatabase(resultQr)
+        } else {
+            // Si no hay conexión a Internet, muestra el diálogo de conexión nuevamente
+            showInternetConnectionDialog()
+        }
+    }
+
+    private fun isConnectedToInternet(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return networkInfo != null && networkInfo.isConnected
     }
 
 }

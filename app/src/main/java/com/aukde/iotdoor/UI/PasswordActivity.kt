@@ -62,8 +62,15 @@ class PasswordActivity : BaseActivity() {
 
         DataDeviceProvider().getData(binding,this)
 
-        preference = getSharedPreferences("fullname", MODE_PRIVATE)
+        preference = getSharedPreferences("cache", MODE_PRIVATE)
         name = preference.getString("key","").toString()
+
+        val type = getSharedPreferences("cache", MODE_PRIVATE).getString("keyTypeUser","").toString()
+        if(type == "client"){
+            optionsBinding.cvUsers.visibility = View.GONE
+            optionsBinding.lnRecords.visibility = View.GONE
+        }
+
         //checkingProximitySensor()
         changeTextEvery30Seconds()
 
@@ -153,10 +160,16 @@ class PasswordActivity : BaseActivity() {
             dialog.dismiss()
         }
         optionsBinding.cvUsers.setOnClickListener {
+            dialog.dismiss()
             startActivity(Intent(this, CreatePasswords::class.java))
         }
         optionsBinding.cvDevices.setOnClickListener {
+            dialog.dismiss()
             startActivity(Intent(this, SyncDeviceActivity::class.java))
+        }
+        optionsBinding.cvRecords.setOnClickListener {
+            dialog.dismiss()
+            startActivity(Intent(this, Record::class.java))
         }
 
         binding.btnOpenLocal.setOnClickListener {
@@ -177,6 +190,7 @@ class PasswordActivity : BaseActivity() {
         val sharedPreferences= getSharedPreferences("cache", Context.MODE_PRIVATE)
         val typeUser = sharedPreferences.getString("keyTypeUser","").toString()
 
+        /*
         if(typeUser != "root"){
             binding.type.text = "Offline"
             binding.typeOffline.visibility = View.VISIBLE
@@ -187,6 +201,7 @@ class PasswordActivity : BaseActivity() {
             binding.sw.isChecked = true
             binding.type.text = "Online"
         }
+         */
 
         binding.sw.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {

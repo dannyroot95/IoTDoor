@@ -43,7 +43,10 @@ class Record : BaseActivity() {
 
     }
 
-
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
     override fun onRestart() {
         super.onRestart()
         getRecords()
