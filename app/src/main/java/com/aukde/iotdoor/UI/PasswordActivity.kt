@@ -19,6 +19,7 @@ import com.aukde.iotdoor.Providers.DataDeviceProvider
 import com.aukde.iotdoor.R
 import com.aukde.iotdoor.databinding.ActivityMainBinding
 import com.aukde.iotdoor.databinding.DialogLayoutBinding
+import com.aukde.iotdoor.databinding.DialogLightsBinding
 import com.google.firebase.database.*
 import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.Dispatchers
@@ -135,6 +136,47 @@ class PasswordActivity : BaseActivity() {
             startActivity(Intent(this, Record::class.java))
         }
         binding.btnMenu.setOnClickListener {
+            dialog.show()
+        }
+
+        binding.btnLights.setOnClickListener {
+            val sharedPreferencesDevice = this.getSharedPreferences("cache", Context.MODE_PRIVATE)
+            val id = sharedPreferencesDevice.getString("keyDevice", "")!!
+            // Usa ViewBinding para inflar el layout del diálogo
+            val dialogBinding = DialogLightsBinding.inflate(layoutInflater)
+
+            // Crear el diálogo
+            val dialog = android.app.AlertDialog.Builder(this)
+                .setView(dialogBinding.root)
+                .setTitle("Control de Luces")
+                .setNegativeButton("Cerrar") { dialogInterface, _ ->
+                    dialogInterface.dismiss()
+                }
+                .create()
+
+            // Recupera el estado actual de las luces desde Firebase
+            mDatabase.child("devices").child(id).get().addOnSuccessListener { dataSnapshot ->
+                val light1State = dataSnapshot.child("lights").child("light1").getValue(Int::class.java) ?: 0
+                val light2State = dataSnapshot.child("lights").child("light2").getValue(Int::class.java) ?: 0
+
+                // Configura el estado inicial de los switches
+                dialogBinding.switchLight1.isChecked = light1State == 1
+                dialogBinding.switchLight2.isChecked = light2State == 1
+            }
+
+            // Listener para el Switch de Luz 1
+            dialogBinding.switchLight1.setOnCheckedChangeListener { _, isChecked ->
+                val newState = if (isChecked) 1 else 0
+                mDatabase.child("devices").child(id).child("lights").child("light1").setValue(newState)
+            }
+
+            // Listener para el Switch de Luz 2
+            dialogBinding.switchLight2.setOnCheckedChangeListener { _, isChecked ->
+                val newState = if (isChecked) 1 else 0
+                mDatabase.child("devices").child(id).child("lights").child("light2").setValue(newState)
+            }
+
+            // Mostrar el diálogo
             dialog.show()
         }
 
