@@ -11,7 +11,7 @@
     <color name="blackgray">#808B96</color>
 
     <color name="primaryadmin">#00346C</color>
-    <color name="primaryadminvariant">#014793</color>
+    <color name="primaryadminvariant">#fff</color>
     <color name="item">#00597A</color>
     <color name="red">#D10000</color>
     <color name="secondaryadmin">#0157B5</color>

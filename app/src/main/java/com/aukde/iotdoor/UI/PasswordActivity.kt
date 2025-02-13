@@ -156,8 +156,8 @@ class PasswordActivity : BaseActivity() {
 
             // Recupera el estado actual de las luces desde Firebase
             mDatabase.child("devices").child(id).get().addOnSuccessListener { dataSnapshot ->
-                val light1State = dataSnapshot.child("lights").child("light1").getValue(Int::class.java) ?: 0
-                val light2State = dataSnapshot.child("lights").child("light2").getValue(Int::class.java) ?: 0
+                val light1State = dataSnapshot.child("lights").child("light1").getValue(String::class.java) ?: 0
+                val light2State = dataSnapshot.child("lights").child("light2").getValue(String::class.java) ?: 0
 
                 // Configura el estado inicial de los switches
                 dialogBinding.switchLight1.isChecked = light1State == 1
@@ -166,13 +166,13 @@ class PasswordActivity : BaseActivity() {
 
             // Listener para el Switch de Luz 1
             dialogBinding.switchLight1.setOnCheckedChangeListener { _, isChecked ->
-                val newState = if (isChecked) 1 else 0
+                val newState = if (isChecked) "1" else "0"
                 mDatabase.child("devices").child(id).child("lights").child("light1").setValue(newState)
             }
 
             // Listener para el Switch de Luz 2
             dialogBinding.switchLight2.setOnCheckedChangeListener { _, isChecked ->
-                val newState = if (isChecked) 1 else 0
+                val newState = if (isChecked) "1" else "0"
                 mDatabase.child("devices").child(id).child("lights").child("light2").setValue(newState)
             }
 

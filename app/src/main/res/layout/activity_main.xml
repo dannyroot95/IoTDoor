@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryadminvariant"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".UI.PasswordActivity">
 
@@ -18,9 +18,9 @@
 
         <com.aukde.iotdoor.Utils.PoppinsTextviewLight
             android:layout_width="match_parent"
-            android:text="Atros"
+            android:text="Athor"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:layout_height="wrap_content"/>
 
         <ImageView
@@ -29,8 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_marginRight="10dp"
-            android:backgroundTint="@color/white"
-            android:src="@drawable/ic_menu_open_24" />
+            android:src="@drawable/ic_menu_open_24"
+            app:tint="@color/black" />
 
     </RelativeLayout>
 
@@ -39,7 +39,7 @@
         android:text="Modulos disponibles"
         android:textSize="16dp"
         android:layout_marginTop="5dp"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="15dp"
         android:layout_height="wrap_content"/>
@@ -58,7 +58,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/primaryadmin"
+                android:backgroundTint="@color/browser_actions_bg_grey"
                 app:cardCornerRadius="12dp">
 
                 <LinearLayout
@@ -70,7 +70,8 @@
                         android:layout_width="25dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
-                        android:src="@drawable/ic_sensor_door" />
+                        android:src="@drawable/ic_sensor_door"
+                        app:tint="@color/black" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -84,7 +85,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Puerta"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="11dp" />
 
                         <LinearLayout
@@ -114,7 +115,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
                                 android:layout_marginRight="5dp"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black"
                                 android:textSize="11dp" />
 
                         </LinearLayout>
@@ -130,7 +131,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:id="@+id/btnLights"
-                android:backgroundTint="@color/primaryadmin"
+                android:backgroundTint="@color/browser_actions_bg_grey"
                 app:cardCornerRadius="12dp">
 
                 <LinearLayout
@@ -142,7 +143,8 @@
                         android:layout_width="35dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="8dp"
-                        android:src="@drawable/ic_light" />
+                        android:src="@drawable/ic_light"
+                        app:tint="@color/black" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -157,7 +159,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:text="Luces"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="11dp" />
 
                         <ImageView
@@ -177,7 +179,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:backgroundTint="@color/primaryadmin"
+                android:backgroundTint="@color/browser_actions_bg_grey"
                 app:cardCornerRadius="12dp">
 
                 <LinearLayout
@@ -189,7 +191,8 @@
                         android:layout_width="35dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="8dp"
-                        android:src="@drawable/ic_videocam_24" />
+                        android:src="@drawable/ic_videocam_24"
+                        app:tint="@color/black" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -204,7 +207,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:text="Video"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="11dp" />
 
                         <ImageView
@@ -224,7 +227,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:backgroundTint="@color/primaryadmin"
+                android:backgroundTint="@color/browser_actions_bg_grey"
                 app:cardCornerRadius="12dp">
 
                 <LinearLayout
@@ -236,7 +239,8 @@
                         android:layout_width="35dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="8dp"
-                        android:src="@drawable/ic_audiotrack_24" />
+                        android:src="@drawable/ic_audiotrack_24"
+                        app:tint="@color/black" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -251,7 +255,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:text="Audio"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="11dp" />
 
                         <ImageView
@@ -286,7 +290,7 @@
             android:inputType="number"
             android:maxLength="4"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="30dp"
             tools:ignore="Autofill,LabelFor,TextFields" />
 
@@ -304,7 +308,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="Online"
-                android:textColor="@color/white" />
+                android:textColor="@color/black" />
 
             <Switch
                 android:id="@+id/sw"
@@ -320,7 +324,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:backgroundTint="@color/primaryadmin"
+            android:backgroundTint="@color/browser_actions_bg_grey"
             android:padding="20dp"
             app:cardCornerRadius="35dp">
 
@@ -562,7 +566,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:text="Conectado"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:visibility="gone" />
 
             <com.aukde.iotdoor.Utils.PoppinsTextviewLight
@@ -571,7 +575,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:text="Desconectado"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:visibility="gone" />
 
             <com.aukde.iotdoor.Utils.PoppinsTextviewLight
@@ -580,7 +584,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:text="Obteniendo datos..."
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="11dp" />
 
             <TextView
